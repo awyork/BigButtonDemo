@@ -1,4 +1,4 @@
-# BigButtonDemo
+# Weather Demo
 
 Simple demo that retreives current weather data for Saint Helena Island SC.
 
