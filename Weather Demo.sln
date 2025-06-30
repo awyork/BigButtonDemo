@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36221.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weather Demo", "BigButtonDemo\Weather Demo.csproj", "{C2167F7F-4A0B-49F8-AF28-9FD5A2C8B76B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weather Demo", "Weather Demo\Weather Demo.csproj", "{C2167F7F-4A0B-49F8-AF28-9FD5A2C8B76B}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Weather Demo Installer", "Setup\Setup.vdproj", "{DBE9999D-346E-CA63-6964-F3B7FC1D42B4}"
 EndProject
