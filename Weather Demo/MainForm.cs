@@ -2,6 +2,7 @@ using BigButtonDemo.Model;
 using Newtonsoft.Json;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
+using Weather_Demo.Model;
 
 namespace BigButtonDemo
 {
@@ -36,23 +37,46 @@ namespace BigButtonDemo
             var weatherTask = client.GetStringAsync("https://yorknation.com/data.json");
             weatherTask.Wait();
 
-            var deserializeSourceData = JsonConvert.DeserializeObject<Weather>(weatherTask.Result);
+            var weatherData = JsonConvert.DeserializeObject<Weather>(weatherTask.Result);
 
-            TempatureTextBox.Text = deserializeSourceData.current.temperature_2m.ToString();
+            TempatureTextBox.Text = weatherData.current.temperature_2m.ToString();
 
-            dataGridView1.Rows.Clear();
-
+            WeatherDataGrid.Rows.Clear();
 
             int i = 0;
-            foreach (var time in deserializeSourceData.hourly.time)
+            foreach (var time in weatherData.hourly.time)
             {
-                string[] row = new string[] { time, 
-                                              deserializeSourceData.hourly.temperature_2m[i].ToString(),
-                                              DecodeCondition(deserializeSourceData.hourly.weather_code[i].ToString())};
-                dataGridView1.Rows.Add(row);
+                string[] row = new string[] { time.ToString(),
+                                              weatherData.hourly.temperature_2m[i].ToString(),
+                                              DecodeCondition(weatherData.hourly.weather_code[i].ToString())
+                                            };
+
+                WeatherDataGrid.Rows.Add(row);
                 i++;
             }
 
+            var tideTask = client.GetStringAsync("https://yorknation.com/tidedata.json");
+            tideTask.Wait();
+
+            var tideData = JsonConvert.DeserializeObject<Tides>(tideTask.Result);
+
+            TidesDataGrid.Rows.Clear(); 
+
+            i = 0;
+            foreach (var tide in tideData.data)
+            {
+                string[] row = new string[] {
+                                                tide.time.ToLocalTime().ToString(),
+                                                (tide.height * 3.28084).ToString(),
+                                                tide.type
+                                            };
+
+                TidesDataGrid.Rows.Add(row);
+                i++;
+            }
+
+
+            StationTextBox.Text = tideData.meta.station.name.ToUpper();
         }
     }
 }

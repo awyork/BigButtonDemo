@@ -47,7 +47,7 @@ namespace BigButtonDemo.Model
 
     public class Hourly
     {
-        public List<string> time { get; set; }
+        public List<DateTime> time { get; set; }
         public List<double> temperature_2m { get; set; }
         public List<int> weather_code { get; set; }
     }
