@@ -1,93 +1,141 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BigButtonDemo.Model
+namespace Weather_Demo.Model
 {
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
     public class Current
     {
-        public required string time { get; set; }
-        public required int interval { get; set; }
-        public required double temperature_2m { get; set; }
-        public required int is_day { get; set; }
-        public required double precipitation { get; set; }
-        public required int weather_code { get; set; }
+        [JsonProperty("time")]
+        public required string Time { get; set; }
+        [JsonProperty("interval")]
+        public required int Interval { get; set; }
+        [JsonProperty("temperature_2m")]
+        public required double Temperature2m { get; set; }
+        [JsonProperty("is_day")]
+        public required bool IsDay { get; set; }
+        [JsonProperty("precipitation")]
+        public required double Precipitation { get; set; }
+        [JsonProperty("weather_code")]
+        public required int WeatherCode { get; set; }
     }
 
     public class CurrentUnits
     {
-        public required string time { get; set; }
-        public required string interval { get; set; }
-        public required string temperature_2m { get; set; }
-        public required string is_day { get; set; }
-        public required string precipitation { get; set; }
-        public required string weather_code { get; set; }
+        [JsonProperty("time")]
+        public required string Time { get; set; }
+        [JsonProperty("interval")]
+        public required string Interval { get; set; }
+        [JsonProperty("temperature_2m")]
+        public required string Temperature2m { get; set; }
+        [JsonProperty("is_day")]
+        public required string IsDay { get; set; }
+        [JsonProperty("precipitation")]
+        public required string Precipitation { get; set; }
+        [JsonProperty("weather_code")]
+        public required string WeatherCode { get; set; }
     }
 
     public class Daily
     {
-        public required List<string> time { get; set; }
-        public required List<double> temperature_2m_max { get; set; }
-        public required List<double> temperature_2m_min { get; set; }
-        public required List<string> sunrise { get; set; }
-        public required  List<string> sunset { get; set; }
+        [JsonProperty("time")]
+        public required List<string> Time { get; set; }
+        [JsonProperty("temperature_2m_max")]
+        public required List<double> Temperature2mMax { get; set; }
+        [JsonProperty("temperature_2m_min")]
+        public required List<double> Temperature2mMin { get; set; }
+        [JsonProperty("sunrise")]
+        public required List<string> Sunrise { get; set; }
+        [JsonProperty("sunset")]
+        public required  List<string> Sunset { get; set; }
     }
 
     public class DailyUnits
     {
-        public required string time { get; set; }
-        public required string temperature_2m_max { get; set; }
-        public required string temperature_2m_min { get; set; }
-        public required string sunrise { get; set; }
-        public required string sunset { get; set; }
+        [JsonProperty("time")]
+        public required string Time { get; set; }
+        [JsonProperty("temperature_2m_max")]
+        public required string Temperature2mMax { get; set; }
+        [JsonProperty("temperature_2m_min")]
+        public required string Temperature2mMin { get; set; }
+        [JsonProperty("sunrise")]
+        public required string Sunrise { get; set; }
+        [JsonProperty("sunset")]
+        public required string Sunset { get; set; }
     }
 
     public class Hourly
     {
-        public required List<DateTime> time { get; set; }
-        public required List<double> temperature_2m { get; set; }
-        public required List<int> weather_code { get; set; }
+        [JsonProperty("time")]
+        public required List<DateTime> Time { get; set; }
+        [JsonProperty("temperature_2m")]
+        public required List<double> Temperature2m { get; set; }
+        [JsonProperty("weather_code")]
+        public required List<int> WeatherCode { get; set; }
     }
 
     public class HourlyUnits
     {
-        public required string time { get; set; }
-        public required string temperature_2m { get; set; }
-        public required string weather_code { get; set; }
+        [JsonProperty("time")]
+        public required string Time { get; set; }
+        [JsonProperty("temperature_2m")]
+        public required string Temperature2m { get; set; }
+        [JsonProperty("weather_code")]
+        public required string WeatherCode { get; set; }
     }
 
     public class Minutely15
     {
-        public required List<string> time { get; set; }
-        public required List<double> precipitation { get; set; }
+        [JsonProperty("time")]
+        public required List<string> Time { get; set; }
+        [JsonProperty("precipitation")]
+        public required List<double> Precipitation { get; set; }
     }
 
     public class Minutely15Units
     {
-        public required string time { get; set; }
-        public required string precipitation { get; set; }
+        [JsonProperty("time")]
+        public required string Time { get; set; }
+        [JsonProperty("precipitation")]
+        public required string Precipitation { get; set; }
     }
 
     public class Weather
     {
-        public required double latitude { get; set; }
-        public required double longitude { get; set; }
-        public required double generationtime_ms { get; set; }
-        public required int utc_offset_seconds { get; set; }
-        public required string timezone { get; set; }
-        public required string timezone_abbreviation { get; set; }
-        public required double elevation { get; set; }
-        public required CurrentUnits current_units { get; set; }
-        public required Current current { get; set; }
-        public required Minutely15Units minutely_15_units { get; set; }
-        public required  Minutely15 minutely_15 { get; set; }
-        public required HourlyUnits hourly_units { get; set; }
-        public required Hourly hourly { get; set; }
-        public required DailyUnits daily_units { get; set; }
-        public required Daily daily { get; set; }
+        [JsonProperty("latitude")]
+        public required double Latitude { get; set; }
+        [JsonProperty("longitude")]
+        public required double Longitude { get; set; }
+        [JsonProperty("generationtime_ms")]
+        public required double GenerationtimeMs { get; set; }
+        [JsonProperty("utc_offset_seconds")]
+        public required int UtcOffsetSeconds { get; set; }
+        [JsonProperty("timezone")]
+        public required string Timezone { get; set; }
+        [JsonProperty("timezone_abbreviation")]
+        public required string TimezoneAbbreviation { get; set; }
+        [JsonProperty("elevation")]
+        public required double Elevation { get; set; }
+        [JsonProperty("current_units")]
+        public required CurrentUnits CurrentUnits { get; set; }
+        [JsonProperty("current")]
+        public required Current Current { get; set; }
+        [JsonProperty("minutely_15_units")]
+        public required Minutely15Units Minutely15Units { get; set; }
+        [JsonProperty("minutely_15")]
+        public required Minutely15 Minutely15 { get; set; }
+        [JsonProperty("hourly_units")]
+        public required HourlyUnits HourlyUnits { get; set; }
+        [JsonProperty("hourly")]
+        public required Hourly Hourly { get; set; }
+        [JsonProperty("daily_units")]
+        public required DailyUnits DailyUnits { get; set; }
+        [JsonProperty("daily")]
+        public required Daily Daily { get; set; }
     }
 
 

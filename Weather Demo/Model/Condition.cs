@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BigButtonDemo.Model
+namespace Weather_Demo.Model
 {
     public class Condition
     {

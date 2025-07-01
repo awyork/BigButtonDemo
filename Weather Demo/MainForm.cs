@@ -1,4 +1,3 @@
-using BigButtonDemo.Model;
 using Newtonsoft.Json;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
@@ -8,7 +7,7 @@ namespace BigButtonDemo
 {
     public partial class MainForm : Form
     {
-        private readonly HttpClient client = new HttpClient();
+        private readonly HttpClient client = new();
         private readonly Dictionary<string, Condition> WeatherCodes;
 
         public MainForm()
@@ -30,7 +29,7 @@ namespace BigButtonDemo
             }
             else
             {
-                return new Dictionary<string, Condition>();
+                return [];
             }
         }
 
@@ -49,17 +48,17 @@ namespace BigButtonDemo
             if (weatherData != null)
             {
 
-                TempatureTextBox.Text = weatherData.current.temperature_2m.ToString();
+                TempatureTextBox.Text = weatherData.Current.Temperature2m.ToString();
 
                 WeatherDataGrid.Rows.Clear();
 
                 int i = 0;
-                foreach (var time in weatherData.hourly.time)
+                foreach (var time in weatherData.Hourly.Time)
                 {
-                    string[] row = new string[] { time.ToString(),
-                                              weatherData.hourly.temperature_2m[i].ToString(),
-                                              DecodeCondition(weatherData.hourly.weather_code[i].ToString())
-                                            };
+                    string[] row = [ time.ToString(),
+                                        weatherData.Hourly.Temperature2m[i].ToString(),
+                                        DecodeCondition(weatherData.Hourly.WeatherCode[i].ToString())
+                                    ];
 
                     WeatherDataGrid.Rows.Add(row);
                     i++;
@@ -77,11 +76,11 @@ namespace BigButtonDemo
                 int i = 0;
                 foreach (var tide in tideData.Data)
                 {
-                    string[] row = new string[] {
-                                                tide.TideTime.ToLocalTime().ToString(),
-                                                (tide.Height * 3.28084).ToString(),
-                                                tide.Type
-                                            };
+                    string[] row = [
+                                        tide.TideTime.ToLocalTime().ToString(),
+                                        (tide.Height * 3.28084).ToString(),
+                                        tide.Type
+                                    ];
 
                     TidesDataGrid.Rows.Add(row);
                     i++;
