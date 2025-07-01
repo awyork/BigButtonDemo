@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weather Demo", "Weather Dem
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Weather Demo Installer", "Setup\Setup.vdproj", "{DBE9999D-346E-CA63-6964-F3B7FC1D42B4}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Weather Common", "Weather Common\Weather Common.shproj", "{5AAF0394-8538-41CD-960B-68D88BB059C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,5 +27,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0406CD84-5E9C-458F-9505-82FB158E08C0}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Weather Common\Weather Common.projitems*{5aaf0394-8538-41cd-960b-68d88bb059c0}*SharedItemsImports = 13
+		Weather Common\Weather Common.projitems*{c2167f7f-4a0b-49f8-af28-9fd5a2c8b76b}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

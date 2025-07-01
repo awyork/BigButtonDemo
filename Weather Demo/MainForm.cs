@@ -1,49 +1,28 @@
 using Newtonsoft.Json;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
+using Weather_Common;
 using Weather_Demo.Model;
+
 
 namespace BigButtonDemo
 {
     public partial class MainForm : Form
     {
-        private readonly HttpClient client = new();
-        private readonly Dictionary<string, Condition> WeatherCodes;
+        //private readonly HttpClient client = new();
+        //private readonly Dictionary<string, Condition> WeatherCodes;
+        private readonly GetData getData;
+
 
         public MainForm()
         {
             InitializeComponent();
-
-            WeatherCodes = GetWeatherCodes();
-        }
-
-        private Dictionary<string, Condition> GetWeatherCodes()
-        {
-            var codesTask = client.GetStringAsync("https://yorknation.com/codes.json");
-            codesTask.Wait();
-
-            var values = JsonConvert.DeserializeObject<Dictionary<string, Condition>>(codesTask.Result);
-            if (values != null)
-            {
-                return values;
-            }
-            else
-            {
-                return [];
-            }
-        }
-
-        private string DecodeCondition(string condition)
-        {
-            return WeatherCodes[condition].Day.Desc;
+            getData = new GetData();
         }
 
         private void GetWeatherButton(object sender, EventArgs e)
         {
-            var weatherTask = client.GetStringAsync("https://yorknation.com/data.json");
-            weatherTask.Wait();
-
-            var weatherData = JsonConvert.DeserializeObject<Weather>(weatherTask.Result);
+            var weatherData = getData.GetWeatherData();
 
             if (weatherData != null)
             {
@@ -57,7 +36,7 @@ namespace BigButtonDemo
                 {
                     string[] row = [ time.ToString(),
                                         weatherData.Hourly.Temperature2m[i].ToString(),
-                                        DecodeCondition(weatherData.Hourly.WeatherCode[i].ToString())
+                                        getData.DecodeCondition(weatherData.Hourly.WeatherCode[i].ToString())
                                     ];
 
                     WeatherDataGrid.Rows.Add(row);
@@ -65,10 +44,7 @@ namespace BigButtonDemo
                 }
             }
 
-            var tideTask = client.GetStringAsync("https://yorknation.com/tidedata.json");
-            tideTask.Wait();
-
-            var tideData = JsonConvert.DeserializeObject<Tides>(tideTask.Result);
+            var tideData = getData.GetTideData();
 
             TidesDataGrid.Rows.Clear();
             if (tideData != null)
