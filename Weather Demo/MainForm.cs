@@ -24,12 +24,19 @@ namespace BigButtonDemo
             codesTask.Wait();
 
             var values = JsonConvert.DeserializeObject<Dictionary<string, Condition>>(codesTask.Result);
-            return values;
+            if (values != null)
+            {
+                return values;
+            }
+            else
+            {
+                return new Dictionary<string, Condition>();
+            }
         }
 
         private string DecodeCondition(string condition)
         {
-            return WeatherCodes[condition].day.desc;
+            return WeatherCodes[condition].Day.Desc;
         }
 
         private void GetWeatherButton(object sender, EventArgs e)
@@ -39,20 +46,24 @@ namespace BigButtonDemo
 
             var weatherData = JsonConvert.DeserializeObject<Weather>(weatherTask.Result);
 
-            TempatureTextBox.Text = weatherData.current.temperature_2m.ToString();
-
-            WeatherDataGrid.Rows.Clear();
-
-            int i = 0;
-            foreach (var time in weatherData.hourly.time)
+            if (weatherData != null)
             {
-                string[] row = new string[] { time.ToString(),
+
+                TempatureTextBox.Text = weatherData.current.temperature_2m.ToString();
+
+                WeatherDataGrid.Rows.Clear();
+
+                int i = 0;
+                foreach (var time in weatherData.hourly.time)
+                {
+                    string[] row = new string[] { time.ToString(),
                                               weatherData.hourly.temperature_2m[i].ToString(),
                                               DecodeCondition(weatherData.hourly.weather_code[i].ToString())
                                             };
 
-                WeatherDataGrid.Rows.Add(row);
-                i++;
+                    WeatherDataGrid.Rows.Add(row);
+                    i++;
+                }
             }
 
             var tideTask = client.GetStringAsync("https://yorknation.com/tidedata.json");
@@ -60,23 +71,24 @@ namespace BigButtonDemo
 
             var tideData = JsonConvert.DeserializeObject<Tides>(tideTask.Result);
 
-            TidesDataGrid.Rows.Clear(); 
-
-            i = 0;
-            foreach (var tide in tideData.data)
+            TidesDataGrid.Rows.Clear();
+            if (tideData != null)
             {
-                string[] row = new string[] {
-                                                tide.time.ToLocalTime().ToString(),
-                                                (tide.height * 3.28084).ToString(),
-                                                tide.type
+                int i = 0;
+                foreach (var tide in tideData.Data)
+                {
+                    string[] row = new string[] {
+                                                tide.TideTime.ToLocalTime().ToString(),
+                                                (tide.Height * 3.28084).ToString(),
+                                                tide.Type
                                             };
 
-                TidesDataGrid.Rows.Add(row);
-                i++;
-            }
+                    TidesDataGrid.Rows.Add(row);
+                    i++;
+                }
 
-
-            StationTextBox.Text = tideData.meta.station.name.ToUpper();
+                StationTextBox.Text = tideData.Meta.Station.Name.ToUpper();
+            }           
         }
     }
 }

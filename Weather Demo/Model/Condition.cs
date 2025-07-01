@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,17 +9,21 @@ namespace BigButtonDemo.Model
 {
     public class Condition
     {
-        public Day day { get; set; }
-        public Night night { get; set; }
+        [JsonProperty("day")]
+        public required Day Day { get; set; }
+        [JsonProperty("night")]
+        public required Night Night { get; set; }
     }
 
     public class Day
     {
-        public string desc { get; set; }
+        [JsonProperty("desc")]
+        public required string Desc { get; set; }
     }
 
     public class Night
     {
-        public string desc { get; set; }
+        [JsonProperty("desc")]
+        public required string Desc { get; set; }
     }
 }
