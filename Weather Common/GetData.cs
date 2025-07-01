@@ -8,25 +8,29 @@ namespace Weather_Common
 {
     public class GetData
     {
+        private const string CODES_URL   = "https://yorknation.com/codes.json";
+        private const string TIDES_URL   = "https://yorknation.com/tidedata.json";
+        private const string WEATHER_URL = "https://yorknation.com/data.json";
+
         private readonly HttpClient client = new();
         private readonly Dictionary<string, Condition> conditions = [];
 
         public GetData()
         {
-            var codesTask = client.GetStringAsync("https://yorknation.com/codes.json");
+            var codesTask = client.GetStringAsync(CODES_URL);
             codesTask.Wait();
 
             conditions = JsonConvert.DeserializeObject<Dictionary<string, Condition>>(codesTask.Result) ?? [];
         }
 
-        public string DecodeCondition(string condition)
+        public string DecodeCondition(string condition, bool isDay = true)
         {
-            return conditions[condition].Day.Desc;
+            return isDay ? conditions[condition].Day.Desc : conditions[condition].Night.Desc;
         }
 
         public Tides? GetTideData()
         {
-            var tideTask = client.GetStringAsync("https://yorknation.com/tidedata.json");
+            var tideTask = client.GetStringAsync(TIDES_URL);
             tideTask.Wait();
 
             var tideData = JsonConvert.DeserializeObject<Tides>(tideTask.Result);
@@ -36,7 +40,7 @@ namespace Weather_Common
 
         public Weather? GetWeatherData()
         {
-            var weatherTask = client.GetStringAsync("https://yorknation.com/data.json");
+            var weatherTask = client.GetStringAsync(WEATHER_URL);
             weatherTask.Wait();
 
             var weatherData = JsonConvert.DeserializeObject<Weather>(weatherTask.Result);

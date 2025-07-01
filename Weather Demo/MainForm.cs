@@ -9,10 +9,7 @@ namespace BigButtonDemo
 {
     public partial class MainForm : Form
     {
-        //private readonly HttpClient client = new();
-        //private readonly Dictionary<string, Condition> WeatherCodes;
         private readonly GetData getData;
-
 
         public MainForm()
         {
@@ -22,6 +19,8 @@ namespace BigButtonDemo
 
         private void GetWeatherButton(object sender, EventArgs e)
         {
+            var now = DateTime.Now;
+
             var weatherData = getData.GetWeatherData();
 
             if (weatherData != null)
@@ -32,37 +31,63 @@ namespace BigButtonDemo
                 WeatherDataGrid.Rows.Clear();
 
                 int i = 0;
+                int selectedRow = 0;
                 foreach (var time in weatherData.Hourly.Time)
                 {
-                    string[] row = [ time.ToString(),
-                                        weatherData.Hourly.Temperature2m[i].ToString(),
-                                        getData.DecodeCondition(weatherData.Hourly.WeatherCode[i].ToString())
-                                    ];
+                    string[] rowData = [
+                                         time.ToString(),
+                                         weatherData.Hourly.Temperature2m[i].ToString(),
+                                         getData.DecodeCondition(weatherData.Hourly.WeatherCode[i].ToString())
+                                       ];
 
-                    WeatherDataGrid.Rows.Add(row);
+                    WeatherDataGrid.Rows.Add(rowData);
+
+                    if (time <= now)
+                    {
+                        selectedRow = i;
+                    }
+
+                    WeatherDataGrid.ClearSelection();
+                    WeatherDataGrid.Rows[selectedRow].Selected = true;
+
                     i++;
                 }
             }
 
             var tideData = getData.GetTideData();
 
-            TidesDataGrid.Rows.Clear();
+            
             if (tideData != null)
             {
+                StationTextBox.Text = tideData.Meta.Station.Name.ToUpper();
+
+                TidesDataGrid.Rows.Clear();
+
                 int i = 0;
+                int selectedRow = 0;
                 foreach (var tide in tideData.Data)
                 {
-                    string[] row = [
-                                        tide.TideTime.ToLocalTime().ToString(),
+                    var time = tide.TideTime.ToLocalTime();
+
+                    string[] rowData = [
+                                        time.ToString(),
                                         (tide.Height * 3.28084).ToString(),
                                         tide.Type
-                                    ];
+                                       ];
 
-                    TidesDataGrid.Rows.Add(row);
+                    TidesDataGrid.Rows.Add(rowData);
+
                     i++;
+
+                    if (time <= now)
+                    {
+                        selectedRow = i;
+                    }
                 }
 
-                StationTextBox.Text = tideData.Meta.Station.Name.ToUpper();
+                TidesDataGrid.ClearSelection();
+                TidesDataGrid.Rows[selectedRow].Selected = true;
+
             }           
         }
     }
