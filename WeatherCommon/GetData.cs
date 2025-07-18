@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Weather_Common.Model;
-using Weather_Demo.Model;
+using WeatherCommon.Model;
 
-namespace Weather_Common
+namespace WeatherCommon
 {
     public class GetData
     {
@@ -47,6 +43,11 @@ namespace Weather_Common
             var weatherData = JsonConvert.DeserializeObject<Weather>(weatherTask.Result);
 
             return weatherData;
+        }
+
+        public static void GetForecast()
+        {
+
         }
     }
 }

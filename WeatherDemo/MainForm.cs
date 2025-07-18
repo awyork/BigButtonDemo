@@ -1,12 +1,9 @@
 using CoordinateSharp;
-using Newtonsoft.Json;
-using System.Net.Http.Json;
-using System.Text.Json.Serialization;
-using Weather_Common;
-using Weather_Demo.Model;
+using WeatherCommon.Model;
+using WeatherCommon;
 
 
-namespace Weather_Demo
+namespace WeatherDemo
 {
     public partial class MainForm : Form
     {
@@ -22,7 +19,7 @@ namespace Weather_Demo
         {
             var now = DateTime.Now;
 
-            var weatherData = getData.GetWeatherData();
+            Weather weatherData = getData.GetWeatherData();
 
             if (weatherData != null)
             {

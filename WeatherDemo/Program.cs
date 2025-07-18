@@ -1,4 +1,4 @@
-namespace Weather_Demo
+namespace WeatherDemo
 {
     internal static class Program
     {
