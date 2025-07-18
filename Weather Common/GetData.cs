@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Weather_Common.Model;
 using Weather_Demo.Model;
 
 namespace Weather_Common
@@ -9,7 +10,7 @@ namespace Weather_Common
     public class GetData
     {
         private const string CODES_URL   = "https://yorknation.com/codes.json";
-        private const string TIDES_URL   = "https://yorknation.com/tidedata.json";
+        private const string TIDES_URL   = "https://yorknation.com/tidedatahome.json";
         private const string WEATHER_URL = "https://yorknation.com/data.json";
 
         private readonly HttpClient client = new();

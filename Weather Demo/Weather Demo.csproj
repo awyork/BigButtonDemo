@@ -9,9 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CoordinateSharp" Version="3.2.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
-  <Import Project="..\Weather Common\Weather Common.projitems" Label="Shared" />
+	<ItemGroup>
+		<ProjectReference Include="..\Weather Common\Weather Common.csproj" />
+	</ItemGroup>
 
 </Project>

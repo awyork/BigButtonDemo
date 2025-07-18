@@ -1,3 +1,4 @@
+using CoordinateSharp;
 using Newtonsoft.Json;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
@@ -5,7 +6,7 @@ using Weather_Common;
 using Weather_Demo.Model;
 
 
-namespace BigButtonDemo
+namespace Weather_Demo
 {
     public partial class MainForm : Form
     {
@@ -34,10 +35,13 @@ namespace BigButtonDemo
                 int selectedRow = 0;
                 foreach (var time in weatherData.Hourly.Time)
                 {
+                    Coordinate coordinate = new(weatherData.Latitude, weatherData.Longitude, time.ToUniversalTime());
+
                     string[] rowData = [
                                          time.ToString(),
                                          weatherData.Hourly.Temperature2m[i].ToString(),
-                                         getData.DecodeCondition(weatherData.Hourly.WeatherCode[i].ToString())
+                                         getData.DecodeCondition(weatherData.Hourly.WeatherCode[i].ToString(), 
+                                                                 coordinate.CelestialInfo.IsSunUp)
                                        ];
 
                     WeatherDataGrid.Rows.Add(rowData);

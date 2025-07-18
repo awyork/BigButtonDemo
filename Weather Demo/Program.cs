@@ -1,4 +1,4 @@
-namespace BigButtonDemo
+namespace Weather_Demo
 {
     internal static class Program
     {
